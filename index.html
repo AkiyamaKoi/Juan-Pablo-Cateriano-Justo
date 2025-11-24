@@ -3,24 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portafolio personal de Juan Pablo Cateriano">
-  <title>Juan Pablo Cateriano</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  <meta name="description" content="Portafolio de Juan Pablo Cateriano — Programación, videojuegos indie, diseño creativo y más.">
+  <meta name="keywords" content="Juan Pablo Cateriano, programación, videojuegos, indie games, portafolio, INTP, desarrollo de juegos, Godot, pixel art">
+  <meta name="author" content="Juan Pablo Cateriano">
+  
+  <title>Juan Pablo Cateriano — Portafolio</title>
 
+  <!-- Preload de fuente (más rápido) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+
+  <style>
+    /* ----------------------------- VARIABLES ----------------------------- */
+    :root {
+      --bg1: #070811;
+      --bg2: #2c0263;
+      --cyan: #22d3ee;
+      --purple: #7c3aed;
+      --shadow: rgba(124, 58, 237, 0.4);
+    }
+
+    /* ----------------------------- RESET ----------------------------- */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
     }
 
     body {
-      background: linear-gradient(135deg, #070811, #2c0263 70%);
-      color: #22d3ee; /* TODO el texto normal en cian suave */
+      background: linear-gradient(135deg, var(--bg1), var(--bg2) 70%);
+      color: var(--cyan);
       scroll-behavior: smooth;
+      line-height: 1.6;
     }
 
+    /* ----------------------------- HEADER ----------------------------- */
     header {
       background-color: rgba(7, 8, 17, 0.9);
       padding: 1.5rem 2rem;
@@ -35,12 +53,14 @@
     }
 
     header h1 {
-      font-size: 1.6rem;
-      color: #7c3aed; /* título principal morado */
+      font-size: 1.7rem;
+      color: var(--purple);
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     nav a {
-      color: #22d3ee;
+      color: var(--cyan);
       margin-left: 1.5rem;
       text-decoration: none;
       font-weight: 600;
@@ -48,11 +68,12 @@
     }
 
     nav a:hover {
-      color: #7c3aed;
-      transform: rotate(-5deg) scale(1.1);
-      text-shadow: 0 0 8px #7c3aed;
+      color: var(--purple);
+      transform: rotate(-3deg) scale(1.08);
+      text-shadow: 0 0 10px var(--purple);
     }
 
+    /* ----------------------------- SECCIONES ----------------------------- */
     section {
       padding: 4rem 2rem;
       max-width: 1000px;
@@ -60,7 +81,6 @@
       opacity: 0;
       transform: translateY(30px);
       transition: all 1s ease;
-      color: #22d3ee; /* todo el texto de secciones en cian suave */
     }
 
     section.visible {
@@ -68,6 +88,7 @@
       transform: translateY(0);
     }
 
+    /* ----------------------------- HERO ----------------------------- */
     .hero {
       text-align: center;
       padding-top: 5rem;
@@ -78,179 +99,168 @@
       height: 160px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid #7c3aed;
+      border: 4px solid var(--purple);
       margin-bottom: 1rem;
       transition: transform 0.5s ease, box-shadow 0.5s ease;
     }
 
     .hero img:hover {
       transform: scale(1.15) rotate(5deg);
-      box-shadow: 0 0 25px #7c3aed;
+      box-shadow: 0 0 28px var(--purple);
     }
 
     .hero h2 {
-      font-size: 2.2rem;
-      margin-bottom: 0.5rem;
-      color: #7c3aed; /* título morado */
+      font-size: 2.3rem;
+      margin-bottom: 0.7rem;
+      color: var(--purple);
     }
 
     .hero p {
-      font-size: 1.1rem;
-      color: #22d3ee; /* párrafo cian */
+      font-size: 1.15rem;
+      opacity: 0.9;
     }
 
-    .btn {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #22d3ee;
-      color: #070811;
-      border-radius: 12px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #7c3aed;
-      transform: scale(1.1) rotate(-3deg);
-      box-shadow: 0 5px 20px rgba(124, 58, 237, 0.7);
-    }
-
-    .gustos-lista, .contactos-lista {
+    /* ----------------------------- LISTAS ----------------------------- */
+    .grid {
       margin-top: 1.5rem;
       list-style: none;
-      padding: 0;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 
-    .gustos-lista li, .contactos-lista li {
-      background-color: rgba(7, 8, 17, 0.85);
+    .grid li {
+      background-color: rgba(7,8,17,0.85);
       padding: 1rem;
       border-radius: 15px;
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: default;
       box-shadow: 0 3px 12px rgba(0,0,0,0.5);
-      color: #22d3ee; /* texto cian */
+      transition: 0.3s ease;
     }
 
-    .gustos-lista li:hover, .contactos-lista li:hover {
-      transform: translateY(-6px) scale(1.05) rotate(-1deg);
-      box-shadow: 0 8px 22px rgba(124, 58, 237, 0.6);
+    .grid li:hover {
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: 0 8px 24px var(--shadow);
     }
 
-    .contactos-lista a {
-      color: #22d3ee;
+    .grid a {
+      color: var(--cyan);
       text-decoration: none;
       font-weight: bold;
+      transition: 0.3s ease;
       display: inline-block;
-      transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
     }
 
-    .contactos-lista a:hover {
-      color: #7c3aed;
+    .grid a:hover {
+      color: var(--purple);
       transform: scale(1.1) rotate(5deg);
-      text-shadow: 0 0 10px #7c3aed;
+      text-shadow: 0 0 10px var(--purple);
     }
 
+    /* ----------------------------- FOOTER ----------------------------- */
     footer {
       text-align: center;
       padding: 2rem;
       background-color: rgba(7, 8, 17, 0.9);
-      color: #22d3ee; /* footer en cian */
-      backdrop-filter: blur(5px);
       box-shadow: 0 -4px 12px rgba(0,0,0,0.6);
     }
 
-    footer a {
-      color: #22d3ee;
-      text-decoration: none;
+    footer p {
+      opacity: 0.85;
     }
 
-    footer a:hover {
-      text-decoration: underline;
-    }
-
+    /* ----------------------------- RESPONSIVE ----------------------------- */
     @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      nav a {
+        margin: 0 0.7rem;
+      }
+
       .hero h2 {
         font-size: 1.8rem;
       }
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>Juan Pablo Cateriano</h1>
     <nav>
       <a href="#sobre-mi">Sobre mí</a>
-      <a href="#gustos">Mis gustos</a>
+      <a href="#gustos">Gustos</a>
       <a href="#contacto">Contacto</a>
-      <a href="#red">Red de contactos</a>
+      <a href="#red">Red</a>
     </nav>
   </header>
 
+  <!-- ----------------------------- HERO ----------------------------- -->
   <section class="hero">
     <img src="perfil.jpg" alt="Foto de Juan Pablo Cateriano">
-    <h2>¡Hola! Soy Juan Pablo Cateriano 👋</h2>
-    <p>INTP | Apasionado por programación, videojuegos indie y música variada 🎮🎵</p>
+    <h2>¡Hola! Soy Juan Pablo 👋</h2>
+    <p>INTP | Programación, videojuegos indie, historias profundas y música 🎮🎵</p>
   </section>
 
+  <!-- ----------------------------- SOBRE MÍ ----------------------------- -->
   <section id="sobre-mi">
     <h2>Sobre mí</h2>
     <p>
-      Curioso y reflexivo, disfruto mezclar lo técnico con lo creativo. Me interesa
-      la programación, el diseño de juegos, historias profundas y música de todo tipo.
+      Soy alguien curioso, reflexivo e imaginativo. Combino lo técnico con lo creativo: 
+      programación, diseño de videojuegos, narrativa y música. 
+      Me encantan los proyectos con alma y significado.
     </p>
   </section>
 
+  <!-- ----------------------------- GUSTOS ----------------------------- -->
   <section id="gustos">
     <h2>Mis gustos</h2>
-    <ul class="gustos-lista">
-      <li>🎮 Videojuegos indie: Nine Sols, Hollow Knight, Castlevania, Cuphead, Hyper Light Drifter</li>
-      <li>🎵 Música: Jazz, J-pop (Ado, Natori, YASOBI) y otros géneros</li>
+    <ul class="grid">
+      <li>🎮 Indies: Nine Sols, Hollow Knight, Hyper Light Drifter, Castlevania</li>
+      <li>🎵 Música: Jazz, J-pop (Ado, Natori, Yoasobi), OSTs</li>
       <li>🧠 MBTI: INTP</li>
-      <li>💻 Programación, desarrollo de videojuegos y diseño creativo</li>
-      <li>📚 Historias profundas y simbólicas como Omori o Dentro del bosque</li>
+      <li>💻 Programación, engines y diseño de juegos</li>
+      <li>📚 Historias profundas como Omori o Dentro del bosque</li>
     </ul>
   </section>
 
+  <!-- ----------------------------- CONTACTO ----------------------------- -->
   <section id="contacto">
     <h2>Contacto</h2>
-    <ul class="contactos-lista">
+    <ul class="grid">
       <li><a href="https://github.com/AkiyamaKoi" target="_blank">GitHub</a></li>
       <li><a href="https://www.linkedin.com/in/juan-pablo-cateriano-justo-987b64385" target="_blank">LinkedIn</a></li>
       <li><a href="mailto:juanpablocateriano@gmail.com">Correo</a></li>
     </ul>
   </section>
 
+  <!-- ----------------------------- RED ----------------------------- -->
   <section id="red">
     <h2>Red de contactos</h2>
-    <ul class="contactos-lista">
+    <ul class="grid">
       <li><a href="https://linkedin.com/in/ecuadrosv" target="_blank">👨‍🏫 Prof. E. Cuadros</a></li>
-      <!-- Aquí puedes añadir a tus compañeros cuando tengas sus links -->
     </ul>
   </section>
 
+  <!-- ----------------------------- FOOTER ----------------------------- -->
   <footer>
     <p>© 2025 Juan Pablo Cateriano — “El código también puede ser arte.”</p>
   </footer>
 
   <script>
-    // Animar las secciones al hacer scroll
-    const sections = document.querySelectorAll('section');
+    // Animación de aparición al hacer scroll
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add("visible");
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.22 });
 
-    sections.forEach(section => observer.observe(section));
+    document.querySelectorAll("section").forEach(s => observer.observe(s));
   </script>
+
 </body>
 </html>
-
