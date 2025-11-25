@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://juan-pablo-cateriano-justo.github.io/JuanPabloCaterianoJusto/sitemap.xml
