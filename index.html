@@ -33,6 +33,17 @@
       line-height: 1.6;
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    canvas#particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
     }
 
     @keyframes gradientBG {
@@ -82,6 +93,8 @@
       opacity: 0;
       transform: translateY(30px);
       transition: all 1s ease;
+      position: relative;
+      z-index: 1;
     }
 
     section.visible {
@@ -161,6 +174,8 @@
       padding: 2rem;
       background-color: rgba(7, 8, 17, 0.9);
       box-shadow: 0 -4px 12px rgba(0,0,0,0.6);
+      position: relative;
+      z-index: 1;
     }
 
     footer p {
@@ -184,6 +199,9 @@
 </head>
 
 <body>
+  <!-- Canvas para partículas -->
+  <canvas id="particles"></canvas>
+
   <header>
     <h1>Juan Pablo Cateriano</h1>
     <nav>
@@ -201,12 +219,10 @@
     <p>INTP | Programación, videojuegos indie, historias profundas y música 🎮🎵</p>
   </section>
 
+  <!-- Resto de secciones (Sobre mí, Gustos, Contacto, Compañeros, Profesores) -->
   <section id="sobre-mi">
     <h2>Sobre mí</h2>
-    <p>
-      Soy alguien curioso, reflexivo e imaginativo. Combino lo técnico con lo creativo: 
-      programación, diseño de videojuegos, narrativa y música. 
-    </p>
+    <p>Soy alguien curioso, reflexivo e imaginativo. Combino lo técnico con lo creativo: programación, diseño de videojuegos, narrativa y música.</p>
     <p>Edad: 18 años</p>
     <p>Formación académica: Estudiante de Ciencias de la Computación - Universidad Católica San Pablo</p>
     <p>Ocupación: Estudiante</p>
@@ -234,7 +250,7 @@
   </section>
 
   <!-- Lista completa de compañeros -->
-  <section id="companeros">
+ <section id="companeros">
     <h2>Compañeros</h2>
     <ul class="grid">
       <li><a href="https://marializcadenashullicapacco.github.io/pagina-web/" target="_blank">Marialit Caderas Multiaparco</a><br><a href="https://www.linkedin.com/in/marializcadenashullicapacco/" target="_blank">LinkedIn</a></li>
@@ -264,7 +280,7 @@
       <li><a href="https://selenaccallomamani.github.io/selena.ccallomamani.github.io/" target="_blank">Selena Goldmannani Haumanzhulu</a><br><a href="https://www.linkedin.com/in/selena-ccallomamani-huaman%C3%B1ahui-6b0364311" target="_blank">LinkedIn</a></li>
     </ul>
   </section>
-
+      <!-- Pega aquí tu lista completa de compañeros (la que me pasaste) -->
   <section id="profesores">
     <h2>Profesores</h2>
     <ul class="grid">
@@ -284,14 +300,68 @@
   </footer>
 
   <script>
+    // Partículas animadas
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    });
+
+    const particlesArray = [];
+    const colors = ['#22d3ee', '#7c3aed', '#ffffff'];
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.7;
+        this.speedY = (Math.random() - 0.5) * 0.7;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > w) this.speedX *= -1;
+        if (this.y < 0 || this.y > h) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles(num = 120) {
+      for (let i = 0; i < num; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    initParticles();
+    animate();
+
+    // Animación de secciones al hacer scroll
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add("visible");
       });
     }, { threshold: 0.22 });
-
     document.querySelectorAll("section").forEach(s => observer.observe(s));
   </script>
-
 </body>
 </html>
